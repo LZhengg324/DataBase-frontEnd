@@ -1,0 +1,10 @@
+@import './reset.css';
+@import './global.css';
+
+.App{
+    color: pink;
+}
+
+.App-other{
+    color: yellowgreen;
+}
