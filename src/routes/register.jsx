@@ -43,27 +43,44 @@ const defaultTheme = createTheme({
 export default function Register() {
     
     const[username, setUsername] = useState('');
+    const[email, setEmail] = useState('');
     const[password, setPassword] = useState('');
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        // try {
+        //     const response = await axios.post(
+        //         'http://localhost:8080/demo/register',    
+        //         {
+        //             username: username,
+        //             email: email,
+        //             password: password,
+        //         }
+        //     );
+        //     console.log(response.data);
+        // } catch (error) {
+        //     console.error('Registration failed:', error);
+        // }
+        // const data = new FormData(event.currentTarget);
+        // console.log({
+        // username: data.get('username'),
+        // email: data.get('email'),
+        // password: data.get('password'),
+        // });
+        const formData = new FormData();
+        formData.append('username', username);
+        formData.append('email', email);
+        formData.append('password', password);
+
         try {
             const response = await axios.post(
-                'http://localhost:8080/register',    
-                {
-                    username: username,
-                    password: password,
-                }
+                'http://localhost:8080/demo/register',
+                formData
             );
             console.log(response.data);
         } catch (error) {
             console.error('Registration failed:', error);
         }
-        // const data = new FormData(event.currentTarget);
-        // console.log({
-        // email: data.get('email'),
-        // password: data.get('password'),
-        // });
     };
 
   return (
@@ -115,6 +132,8 @@ export default function Register() {
                             fullWidth
                             id="email"
                             label="Email Address"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             name="email"
                             autoComplete="email"
                             />
@@ -143,6 +162,7 @@ export default function Register() {
                     type="submit"
                     fullWidth
                     variant="contained"
+                    onClick={handleSubmit}
                     sx={{ mt: 3, mb: 2 , bgcolor: 'themeColor.main'}}
                     >
                     Sign Up
