@@ -41,18 +41,19 @@ const defaultTheme = createTheme({
 });
 
 export default function Login() {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const formData = new FormData();
+    formData.append('email', email)
+    formData.append('password', password)
+
     try {
       const response = await axios.post(
-        'http://localhost:8080/login',
-        {
-          username: username,
-          password: password,
-        }
+        'http://localhost:8080/demo/login',
+        formData
       );
       console.log(response.data);
     } catch (error) {
@@ -106,9 +107,9 @@ export default function Login() {
                 fullWidth
                 id="email"
                 label="Email Address"
-                value={username}
+                value={email}
                 name="email"
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
                 autoComplete="email"
                 autoFocus
               />
