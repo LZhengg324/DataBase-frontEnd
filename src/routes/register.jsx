@@ -4,8 +4,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -43,6 +41,7 @@ const defaultTheme = createTheme({
 export default function Register() {
     
     const[username, setUsername] = useState('');
+    const[PhoneNumber, setPhoneNumber] = useState('');
     const[email, setEmail] = useState('');
     const[password, setPassword] = useState('');
 
@@ -70,14 +69,15 @@ export default function Register() {
         const formData = new FormData();
         formData.append('username', username);
         formData.append('email', email);
+        formData.append('phone number', PhoneNumber);
         formData.append('password', password);
 
         try {
             const response = await axios.post(
-                'http://localhost:8080/demo/register',
+                'http://localhost:8080/user/register',
                 formData
             );
-            console.log(response.data);
+            console.log(response);
         } catch (error) {
             console.error('Registration failed:', error);
         }
@@ -120,9 +120,11 @@ export default function Register() {
                             <TextField
                             required
                             fullWidth
-                            id="lastName"
-                            label="Last Name"
-                            name="lastName"
+                            id="PhoneNumber"
+                            label="Phone Number"
+                            value={PhoneNumber}
+                            onChange={(e) => setPhoneNumber(e.target.value)}
+                            name="PhoneNumber"
                             autoComplete="family-name"
                             />
                         </Grid>
@@ -149,12 +151,6 @@ export default function Register() {
                             value={password}
                             onChange={(e)=>setPassword(e.target.value)}
                             autoComplete="new-password"
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <FormControlLabel
-                                control={<Checkbox value="allowExtraEmails" sx={{color: 'themeColor.light', '&.Mui-checked':{color: 'themeColor.dark'}}} />}
-                                label="I want to receive inspiration, marketing promotions and updates via email."
                             />
                         </Grid>
                     </Grid>
