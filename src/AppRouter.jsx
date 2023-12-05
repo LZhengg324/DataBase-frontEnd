@@ -5,6 +5,7 @@ import {
 import Login from './routes/login';
 import Register from './routes/register';
 import Home from './routes/home';
+import OrderPage from "./routes/Checkout";
 
 const router = createBrowserRouter([
     {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
     {
         path: "/home",
         element: <Home/>,
+    },
+    {
+        path: "/checkout",
+        element:<OrderPage/>
     }
 ])
 
